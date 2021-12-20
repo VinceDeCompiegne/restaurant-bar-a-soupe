@@ -1,0 +1,4 @@
+<files .htaccess>
+order allow,deny
+allow from all
+</files> 

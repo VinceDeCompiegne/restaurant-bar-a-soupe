@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" defer/>
+    
+    <link href="assets/css/index.css" rel="stylesheet">
+
+</head>
+<body>
+    <HEADER>
+        <img src="assets/images/Bol_Icon.png" alt="logo restaurant"/>
+        <h1>Restaurant Bar à Soupe</h1>
+        <nav>
+            <ul>
+                <li><a href="index.php">Acceuil</a></li>
+                <li><a href="Galerie.php">Plats et Menus</a></li>
+                <li><a href="Reservation.html">Reservation</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+                <li><a href="Admin.php" id="btnLogin" data-toggle="modal" data-target="#staticBackdrop">Admin</a></li>
+            </ul>
+        </nav>
+    </HEADER>
+    <MAIN id="pageSrv__dmn">
+        <style>
+            table{
+                width:400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            td{
+                width:200px;
+            }
+            #chgPwd_Table{
+                display:flex;
+                align-items:center;
+                flex-direction: column;
+                position:absolute;
+                top:25%;
+            }
+            button{
+                width:30%;
+                margin-top:50px;
+                margin-left: 35%;
+                margin-right: 35%; 
+            }
+            #PassValide{ 
+                color:green;
+                visibility: hidden;
+                text-align: center;
+            }
+            FOOTER{
+                position:absolute;
+                bottom:0px;
+            }
+        </style>
+        <div id="chgPwd_Table">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Changement de mot de passe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="1">mail</td><td colspan="1"><input type="text" id="iptMail"></td></tr>
+                    <tr><td>Ancien mot de passe</td><td><input type="password" id="iptOldPass"></td></tr>
+                    <tr><td>nouveau mot de passe</td><td><input type="password" id="iptNewPass1"></td></tr>
+                    <tr><td>confirmation du mot de passe</td><td><input type="password" id="iptNewPass2"></td></tr>
+                </tbody>
+            </table>
+            <button onclick="chgPassword()">Valider</button>
+            <p id="PassValide">Mot de passe modifié</p>
+        </div>
+        
+        </MAIN>
+ 
+    <div id="debug"></div>
+            <FOOTER>
+                <SECTION id="PiedDePage">
+                    <div>  
+                            <h4>Contacter Nous</h4>
+                            <img src="assets/images/iconfinder_square-facebook.svg" alt="logo Facebook"/>
+                            <img src="assets/images/iconfinder_circle-twitter.svg" alt="logo Twitter"/>
+                            <img src="assets/images/iconfinder_pinterest.svg" alt="logo Pinterest"/>
+                    </div>
+                    <div>
+                        <h4>© Copyright 2021</h4>
+                        <div id="debug"></div>
+                    </div>
+                    <dialog id="mydialogPass" close> 
+                        <div id="detail_pwd"></div>  
+                    </dialog>
+
+                </SECTION>
+            </FOOTER>
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Connexion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="login.php" method="post">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="mail">Identifiant</label>
+                                <input type="email" class="form-control" id="mail" name="mail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass">Mot de passe</label>
+                                <input type="password" class="form-control" id="pass" name="pass" pattern="[A-Za-z0-9_$]{8,}" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            <input type="submit" value="Se connecter" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script	type="text/javascript" src="assets/js/pwdChg.js" defer></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script	type="text/javascript" src="assets/js/reservation.js" defer></script>
+    <script	type="text/javascript" src="assets/js/detailCmd.js" defer></script>
+    <title>Restaurant Bar à Soupe</title>
+</head>
+<body>
+    <HEADER>
+        <img src="assets/images/Bol_Icon.png" alt="logo restaurant"/>
+        <h1>Restaurant Bar à Soupe</h1>
+        <nav>
+            <ul>
+                <li><a href="index.php">Acceuil</a></li>
+                <li><a href="Galerie.php">Plats et Menus</a></li>
+                <li><a href="Reservation.html">Reservation</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </HEADER>
+    <SECTION>
+        <div id="PreReservation">
+            <div id="reservation">
+                <H3>Pré-Réservation</H3>
+                <H4>SPEUDO:</H4>
+                
+                    <div><input id="speudo" type="INPUT" value="SPEUDO" Class="SPEUDO"></div>
+                
+                <H4>Ticket n° :</H4>
+                <H4 id="numTicket">000</H4>
+                <H3 id="msgTicket"></H3>
+                
+                    <div><Button type="submit" name="reservBouton" value="Reservation" class="ReservBouton" Onclick="reservation('1');">Reservation</Button></div>
+                    <div><Button type="submit" name="annulBouton" value="Annulation" Class="ReservBouton" id="btn__Annulation" Onclick="reservation('-1');" disabled="true">annulation</Button></div>
+                   
+                <div id="Rsrvation_detail"></div>
+        
+            </div>
+
+            <article id="horaire">
+                <h3 class="Hidden">horaire</h3>
+                <table>
+                    <tr class="horaire"><td>Horaires</td></tr>
+                    <tr class="horaire_Jour"><td>Du lundi au vendredi</td></tr>
+                    <tr class="horaire_Jour"><td>Midi</td><td>Soir</td></tr> 
+                    <tr class="horaire_Heure"><td>12h00-15h00</td><td>19h00-22h00</td></tr>
+                    <tr class="horaire_Heure"><td>12h00-15h00</td><td>19h00-22h00</td></tr>
+                    <tr class="horaire_Jour"><td>Samedi et dimanche</td></tr>
+                    <tr class="horaire_Jour"><td>Matin</td></tr>
+                    <tr class="horaire_Heure"><td>6h30-8h30</td></tr>
+                    <tr class="horaire_Jour"><td>Midi</td><td>Soir</td></tr>
+                    <tr class="horaire_Heure"><td>12h00-15h00</td><td>19h00-23h00</td></tr>
+                </table>
+            </article>
+            <dialog id="mydialog" close> 
+                <p>Detail</p>
+                <div id="detail"></div>
+                <div class="boutons"><button onclick="functionClose()">Fermer</button> 
+            </dialog>
+
+    </SECTION>
+    <SECTION id="ResPlat">
+
+        <H5 id="telephone">Validation Téléphonique: 09.09.09.09.09</H5>
+        <div id="ReservationLigne">
+        </div>
+        <!-- <div class="Partager">
+            <div class="fb-share-button" data-href="https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/Reservation.html" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%2Frestaurant-bar-a-soupe%2FReservation.html&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div>
+        </div> -->
+    </SECTION>
+    <FOOTER>
+        <SECTION id="PiedDePage">
+            <div>  
+                    <h4>Contacter Nous</h4>
+                    <img class="logo" src="assets/images/iconfinder_square-facebook.svg" alt="logo Facebook"/>
+                    <img class="logo" src="assets/images/iconfinder_circle-twitter.svg" alt="logo Twitter"/>
+                    <img class="logo" src="assets/images/iconfinder_pinterest.svg" alt="logo Pinterest"/>
+            </div>
+            <div>
+                <h4>© Copyright 2021</h4>
+                <div id="debug"></div>
+            </div>
+        </SECTION>
+        </FOOTER>
+        <!--div id="fb-root"></!--div>
+            <script-- async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v10.0" nonce="N4UwNc9K"></script-->
+    </body>
+        
+    <div id="test"></div>
+    </html>

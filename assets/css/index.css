@@ -1,0 +1,898 @@
+/*
+    1 : PAGE INDEX
+        1-0 : PAGE INDEX - min-width: 460px
+        1-1 : PAGE INDEX - max-width: 460px
+    2 : PAGE Galerie
+        2-0 : PAGE Galerie - min-width: 460px
+        2-1 : PAGE Galerie - max-width: 460px
+        2-2 : PAGE Galerie - Commun
+    3 : PAGE RESERVATION
+        3-0 : PAGE RESERVATION - min-width: 460px
+        3-1 : PAGE RESERVATION - max-width: 460px
+    4 : PAGE CONTACT
+        4-0 : PAGE CONTACT - min-width: 460px
+        4-1 : PAGE CONTACT - max-width: 460px
+    5 : PAGE ADMIN
+        5-0 : PAGE ADMIN - min-width: 460px
+ 
+*/
+
+*{
+    margin:0px;
+    padding:0 px;
+    width:100%;
+}
+HEADER {
+    display:flex;
+    width:100%;
+    background-color:brown;
+}
+HEADER img{
+    display:flex;
+    position:relative;
+    width:50px;
+    height:50px;
+}
+@media screen and (min-width: 460px){
+/*                                                           PAGE INDEX - min-width: 460px*/
+/****************** Photo Principal ***************/
+    #partieHaute{
+        display:block;
+        width: 100%;
+        height:auto;
+        text-align: center;
+    }
+    #partieHaute img{
+        width: auto;
+        height:300px;
+    }
+ /****************** VOUS AIMEZ ********************/
+    #Plat{
+        width:100%;
+        height:auto;
+    }
+    #Plat div{
+        width:100%;
+        height:45%;
+        max-height:200px;
+    }
+    #VousAimez h4{
+        font-size:24px; 
+    }
+    #VousAimez img{
+        display:block;
+        position:relative;
+        width:150px;
+        height:150px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    #VousAimez input{
+        display:flex;
+        width:25%;
+        height:10%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    #VousLikez h4{
+        font-size:24px; 
+    }
+    #VousLikez img{
+        display:block;
+        position:relative;
+        width:150px;
+        height:150px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    #VousLikez input{
+        display:flex;
+        width:25%;
+        height:10%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+/****************** Partie Basse ********************/
+    #PartieBasse{
+        display:flex;
+        position:relative;
+        width:100%;
+        margin-top:50px;
+    }
+    #PartieBasse img{
+        display:flex;
+        width:150px;
+        height:150px;
+        margin-left:auto;
+        margin-right:auto;
+        margin-top: 25px;
+    }
+    #PartieBasse h4{
+        font-size:24px; 
+    }
+/********************* Horaire **********************/
+    #horaire{
+        margin-top:100px;
+    }
+    HEADER ul{
+        display:flex;
+        width: 80%; 
+        top: 15px;
+        right: 16px;
+    }
+/* RESERVATION*/
+    #PreReservation{
+        display:flex;
+        width:80%;
+    }
+    #reservation{
+        margin-left:auto;
+        margin-right:auto;
+        margin-top:5%;
+    }
+    #telephone{
+        margin-top:25px;
+        font-size:32px;
+    }
+    #ResPlat{
+        display:Block;
+        Width:100%; 
+    }
+    #ReservationLigne{
+        display:flex; 
+    }
+    #Partager{
+        display:block;
+        font-size: 24px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+/*                                                           PAGE Galerie - min-width: 460px*/
+    MAIN H2{
+        font-size:30px;
+        width:20%;
+        margin-left:40%;
+        margin-right:40%;
+    }
+    .PlatMenu{
+        display:flex;
+        margin-top:50px;
+        margin-bottom: 50px;
+        margin-right: auto;  
+    }   
+    #MENU div img{ 
+        display:flex;
+        flex-wrap: wrap; 
+        width: 50%;
+        height:auto;
+        max-height:285px;
+    }
+    .plat{
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    .Gal__liste{
+        width:35px;
+        margin-right:20px;
+    }
+    .nutriScore{
+        text-align:right;
+    }
+    .img{
+        width:200px;
+        height:auto;
+        margin-left:25%;
+    }
+/*                                                           PAGE CONTACT - min-width: 460px*/
+    #Contact{
+        display:block;
+        width:80%;
+        margin-left:20%;
+    }
+    #Contact_horaire div{
+        margin-left: 25%;
+    }
+    #Restaurant{
+        display:flex;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    #Restaurant table{ 
+        width:350px;
+        margin-left: 5%;
+        margin-top:auto;
+        margin-bottom:auto;
+    }
+    #Restaurant img{
+        width:50%;
+        height:auto;
+    }
+    #Restaurant div{
+        width:350px;
+        margin-left: 5%;
+    }
+    #AdresseEtHoraire{
+        display:flex;
+    }
+    #AdresseEtHoraire img{
+        width:40%; 
+        height:auto;
+        margin-left: auto;
+        margin-right:auto;
+        margin-top: 100px;
+    }
+    #AdresseEtHoraire div{
+        display:Block;
+        width:80%;
+        height:auto;
+        margin-top: 100px;
+    }
+/*                                                           PAGE ADMIN - min-width: 460px*/
+.pageAd__tbl_cntnr{
+    display:flex;
+    width:600px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:50px;   
+} 
+
+table.pageAd__tbl {
+
+    width:450px;
+    margin-top: 50px;
+    /* margin-left: auto; */
+    /* margin-right:auto; */
+}
+table.pageAd__tbl tr{
+        /* margin-left: auto; */
+        /* margin-right:auto; */
+    }
+table.pageAd__tbl td{
+       width: 300px;
+}
+
+.pageAd__npt_rcp{
+    width:125px;
+}
+#pageAd__npt_div{
+    display:flex;
+    justify-content:center;
+}
+#pageAd__spp_ok{
+    width:450px;
+    height:30px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+    .pageAd__frm{
+        width: 100px;
+        margin-left:auto;
+        margin-right:auto;
+        display: flex;
+        margin-top: 50px;
+    }
+
+    #pageAd__lbl{
+        width:100px;
+    }
+    #pageAd__npt{
+        width:100px;
+    }
+    #pageAd__sbmt{
+        width:100px;
+    }
+
+    /*                                                           PAGE SERV - min-width: 460px*/
+  
+table.pageSrv__tbl {
+
+    width:350px;
+
+    /* margin-top: 50px; */
+
+}
+
+
+div.pageSrv__div{
+    display:flex;
+    width:350px;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top:50px;
+}
+ table.pageSrv__tbl_dtl{
+    width:30px;
+} 
+table.pageSrv__tbl tr{
+        margin-left: auto;
+        margin-right:auto;
+    }
+
+table.pageSrv__tbl td{
+       width: 300px;
+}
+table.pageSrv__tbl_mod{
+    width:600px;
+    margin-top: 50px;
+}
+.pageSrv__npt_rcp{
+    width:125px;
+}
+#pageAd__npt_div{
+    display:flex;
+    justify-content:center;
+}
+.pageSrv__spp_ok{
+    width:450px;
+    height:30px;
+    margin-left:auto;
+    margin-right:auto;
+}
+#detail_tbl{
+    width:300px;
+    
+}
+.detail_h2.h2{
+    /* text-align: left; */
+    align-items: left;
+    font-weight: bold;
+}
+div.detail_div{
+    width:300px;
+}
+table.srv__detail_tbl{
+    width:400px;
+    margin-left:auto;
+    margin-right:auto;
+}
+#mydialog{
+    width:450px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:auto;
+    margin-bottom:auto;
+}
+#mydialogUser{
+    width:600px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:auto;
+    margin-bottom:auto;
+}
+    #pageSrv__lbl{
+        width:100px;
+    }
+    #pageSrv__npt{
+        width:100px;
+    }
+    #pageSrv__sbmt{
+        width:100px;
+    }
+    #logo{
+        width:25px;
+        margin-top: 10px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+}
+@media screen and (max-width: 460px){
+
+/*                                                           PAGE INDEX - max-width: 460px*/
+/****************** Photo Principal ***************/
+    #partieHaute{
+        display:flex;
+        width: 100%;
+        height:auto;
+        text-align: center;
+    }
+    #partieHaute img{
+        width: 100%;
+        height:auto;
+    }
+/****************** VOUS AIMEZ ********************/
+    #Plat{
+        display:block;
+        width:100%;
+        height:auto;
+
+    }
+    #Plat div{
+        display:block;
+        width:100%;
+        height:auto;
+        margin-top: 25px;
+    }
+    #Plat img{
+        display:block;
+        position:relative;
+        width:100%;
+        height:auto;
+        margin-top: 25px;
+    }
+    #Plat input{
+        margin-top:50px;
+        margin-bottom:50px;
+    }
+    #VousLiker{
+        display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+    }
+/****************** BANDEAU BAS *******************/
+    #PartieBasse{
+        display:block;
+        width:100%;
+    }
+    #PartieBasse img{
+        display:block;
+        width:100%;
+        height:auto;
+        margin-top: 25px;
+    }
+    #PartieBasse input{
+        margin-top:50px;
+        margin-bottom:50px;
+    }
+/******************* Horaire **********************/
+    #horaire{
+        margin-top:50px;
+    }
+    HEADER h1{
+        font-size: larger;
+    }
+    HEADER ul{
+        display:Block; 
+        width: 80%;    
+    }
+/*                                                           PAGE RESERVATION - max-width: 460px*/
+    #PreReservation{
+        display:block;
+        width:80%;
+    }
+    #reservation{
+        margin-right:auto;
+        margin-left:auto;
+        margin-top:5%; 
+    }
+    #telephone{
+        margin-top:25px;
+        font-size:26px;
+    }
+    #ReservationLigne img{
+        Width:100%;
+    }
+    #ReservationLigne{
+        display:Block; 
+    }
+    #Partager{
+        display:flex;
+        font-size: 24px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+/*                                                           PAGE Galerie - max-width: 460px*/
+    MAIN H2{
+        font-size:24px;
+        width:50%;
+        text-align:center;
+        /* margin-left:25%;
+        margin-right:25%; */
+    }
+    .PlatMenu{
+        display:block;
+        margin-top:25px;
+        margin-bottom: 25px;
+        /* text-align:center;   */
+    }
+    #MENU div img{
+        display:flex;
+        flex-wrap: wrap; 
+        width: 90%;
+        height:auto;
+        max-height:285px;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-bottom:20px;   
+    }
+
+    .plat{
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .Gal__liste{
+        width:35px;
+        margin-right:10px;
+    }
+/********** Contact ***********/
+    #Contact{
+        display:block;
+        width:100%;
+        margin-left: auto;
+        margin-right:auto;
+    }
+
+    #Restaurant{
+        display:Block;
+        width:100%; 
+        margin-bottom: 50px;
+    }
+    #Restaurant table{
+        width:60%; 
+        margin-left: auto;
+        margin-right:auto;
+        margin-top: 50px;
+        margin-top:auto;
+        margin-bottom:auto;
+    }
+    #Restaurant div{
+        width:60%; 
+        margin-left: auto;
+        margin-right:auto;
+        margin-top: 50px;
+    }
+    #Restaurant img{
+        width:100%; 
+        height:auto;
+        margin-left: auto;
+        margin-right:auto;
+    }
+    #AdresseEtHoraire{
+        display:Block;
+    }
+    #AdresseEtHoraire img{
+        width:100%; 
+        height:auto;
+        margin-left: auto;
+        margin-right:auto;
+        margin-top: 50px;
+    }
+    #Contact_horaire div{
+        margin-left: auto;
+        margin-right:auto;
+    }
+    #AdresseEtHoraire div{
+        display:Block;
+        width:60%;
+        height:auto;
+        margin-top: 50px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /*                                                           PAGE ADMIN - max-width: 460px*/
+
+    #pageAd__lbl{
+        width:200px;
+        justify-content:center;
+    }
+
+    #pageAd__npt{
+        width:100px;
+        justify-content:center;
+    }
+
+}
+HEADER h1{
+    display:flex;
+    position:relative;
+    width: 40%;
+    margin-left: 3%;
+}
+HEADER nav{
+    width:60%;
+}
+HEADER ul{
+    position: relative;
+    list-style:none; 
+}
+HEADER ul li{
+        display:flex;
+        float:left;
+        position:relative;
+        width: 100%;
+}
+nav a{
+    text-decoration:none;
+    text-rendering:auto;
+    color:black;
+}
+nav a:hover{
+    color:coral;
+}
+#Plat input{
+    display:flex;
+    width:auto;
+    height:10%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:25px;
+}
+/********** Plat *************/
+#Plat{
+    margin-top:50px;
+    margin-bottom:50px;
+}
+#Plat h3{
+    font-size: 28px;
+    text-align: center;
+    display: block;
+    Width: 25%;
+    height: 10%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#VousAimez{
+    display:flex;
+    position:relative;
+    margin-top:25px;
+}
+#VousAimez h4{
+    display:block;
+    text-align: center;
+    font-size: 24px;
+    height:10%; 
+    Width:auto;
+    margin-left:auto;
+    margin-right:auto; 
+}
+#VousLikez{
+    display:flex;
+    position:relative;
+    margin-top:25px;
+}
+#VousLikez h4{
+    display:block;
+    text-align: center;
+    font-size: 24px;
+    height:10%; 
+    Width:auto;
+    margin-left:auto;
+    margin-right:auto; 
+}
+#PartieBasse h4{
+    display:block;
+    text-align: center;
+    Width:auto;
+    margin-left:auto;
+    margin-right:auto; 
+}
+#PartieBasse input{
+    display:flex;
+    width:auto;
+    height:10%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:25px;
+}
+/************Horaire***************/
+#horaire{
+    display:flex;
+    justify-content:center;
+    width:300px;
+    height:auto;
+    margin-top:10px;
+    padding-left: 50px;
+    margin-top: 50px;
+    margin-left:auto;
+    margin-right:auto;
+}
+.Hidden{
+    visibility:hidden;
+    Height:0px;
+    width:0px;
+}
+#horaire td{
+    width:auto;
+}
+#horaire table{
+    margin-left:auto;
+    justify-content:center;
+    /*display:block;*/
+    width: 300px;
+
+}
+.horaire_Titre{
+    font-size: 24px;
+    font-weight: bold; 
+}
+.horaire_horaire{
+    font-size: 24px;
+    font-weight: bold;
+}
+.horaire_Jour{
+    font-size: 18px;
+    font-weight: bold;
+}
+.horaire_Heure{
+    font-size: 16px;
+}
+/************* FOOTER ******************/
+FOOTER{
+    display:block;
+    width:auto;
+    margin-top:50px;
+    background-color:brown;
+    width:100%;
+}
+#PiedDePage{
+    width:100%;
+}
+#PiedDePage div{
+    display:block;
+    width:25%;
+    text-align: center;
+    margin-top: 10px;
+    margin-left:auto;
+    margin-right:auto;
+}
+#PiedDePage img{
+    width:25px;
+    margin-top: 10px;
+    margin-left:auto;
+    margin-right:auto;
+}
+/************* RESERVATION *************/
+#PreReservation{
+    margin-left:10%;
+    margin-top:50px;
+    margin-bottom:50px;
+}
+#reservation{
+    display:block;
+    width:200px;
+    margin-right:auto;
+    margin-left:auto;
+    margin-top:5%;
+}
+#Res_horaire{
+    display:block; 
+    Width:auto;
+    margin-top:5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#Res_horaire H6{
+    Font-size:16px;
+}
+
+
+#ReservationLigne article{
+    Width:30%;
+}
+#ReservationLigne{
+    Width:80%;
+    Margin-top:25px;
+    Margin-bottom:25px;
+    margin-left:auto;
+    margin-right:auto;
+    flex-wrap: wrap;  
+}
+.PlatRes{
+    margin-left:auto;
+    margin-right:auto;
+}
+.PlatRes img{
+    margin-left:auto;
+    margin-right:auto; 
+}
+.PlatRes h4{
+    text-align:center;
+}
+#telephone{
+    display:block;
+    height:auto;
+    text-align: center;
+    margin-bottom:50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*                                                           PAGE Galerie - Commun*/
+#MENU{
+    display:block;
+    width:100%;
+}
+/***************** TITRE **********************/
+MAIN H2{
+    text-align: center;
+    Margin-top:25px;
+}
+/***************** TEXT PLAT ********************/
+.plat{
+    display:Block;
+    width:80%;
+    margin-left:10%;
+    margin-right:10%;
+}
+.plat H4{
+    font-size: 30px;
+    margin-bottom:20px;
+}
+.plat H6{
+    font-size: 12px;
+    text-align:justify;
+    margin-bottom:20px;
+}
+.Gal__liste{
+    visibility: hidden;
+}
+/****************  CONTACT **********/
+#Restaurant{
+    height:auto;
+}
+#Restaurant img{
+    display:Block;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#Restaurant div{
+    display:Block;
+    font-size:24px;
+}
+#Contact_Adresse td{
+    width: auto;
+    font-size: 18px;
+    font-weight: bold;
+}
+#AdresseEtHoraire{
+    width: auto;
+    height:auto;
+}
+#AdresseEtHoraire img{
+    display:Block;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#Contact_horaire div{
+    display:Block;
+    width:200px;
+    font-size:24px;
+}
+#Contact_horaire div{
+    display:Block;
+    width:auto;
+    font-size:24px;
+}
+/******************* BOUTTON *****************/
+.BoutonGalerie{
+    display: flex;
+}
+.BoutonGalerie div{
+    display: flex;
+    JUSTIFY-CONTENT: FLEX-END;
+}
+.BoutonGalerie a{
+    display: flex;
+    width:75px;
+}
+.Reserver{
+    height:25px;
+    width:75px;
+    list-style:none; 
+}
+.coeur{
+    font-size: 18px;
+    Width:25px;
+    height:25px;
+    border-color: transparent;
+    background-color: transparent;
+    list-style:none; 
+    margin-left:70px;
+}
+
+/******************* BOUTTON *****************/
+.BoutonReservation{
+    display:flex;
+    position:relative;
+    left:35%;
+    right:0px;
+}
+.ResCoeur{
+    font-size: 18px;
+    margin-left: 10px;
+    border-color: transparent;
+    background-color: transparent;
+    text-align: center;
+    list-style:none; 
+}
+

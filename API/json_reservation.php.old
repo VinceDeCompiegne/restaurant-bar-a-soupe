@@ -1,0 +1,182 @@
+<?php
+
+$reservation = (urldecode($_GET['reservation'])!==null) && !empty(urldecode($_GET['reservation'])) ? htmlspecialchars(urldecode($_GET['reservation'])): null;
+//VAR_DUMP($reservation);
+
+$response = json_decode(urldecode($_GET['reservation']));
+//var_dump($response);
+const TEMP = 600;
+
+if ($response != 'null') {
+    include_once('../inc/constants.inc.php');
+    $dsn = "mysql:host=" . HOST . ";port=" . PORT . ";dbname=" . DATA;
+    $options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
+    $pdo = new PDO($dsn, USER, PASS, $options);
+
+    /*Requete pour savoir si l'utilisateur à déjà fait une commande dans un temps déterminé*/
+    $sql = "SELECT * FROM reservation WHERE pseudo=:pseudo AND (chck!=2) AND (IP != :IP);";
+    try{
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute(array(":pseudo" => $response[0]->pseudo,":IP"=> $_SERVER['REMOTE_ADDR']));
+        
+    } catch (PDOException $err) {
+        if ($err->getCode()== "42S02")
+        {
+            CreateServerTable_reservation();
+        }
+    }
+    if ($pdoStatement->rowCount()!=0) {
+        echo(json_encode(array("id"=>"","valid"=>"","message"=>"pseudo déjà utilisé","errorMsg"=>$err->getmessage())));
+    }
+    else
+    {   
+        //Vérification que la commande est livrée
+        $sql = "SELECT * FROM reservation WHERE pseudo=:pseudo AND (chck=2) AND (IP = :IP)  AND ((now()-reservation.date) < :temp);";
+        try{
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute(array(":temp"=>TEMP,":pseudo" => $response[0]->pseudo,":IP"=> $_SERVER['REMOTE_ADDR']));
+        }catch(PDOException $err){
+            echo(json_encode(array("id"=>"","valid"=>"ok","message"=>"","errorMsg"=>$err->getmessage())));
+        }
+        if ($pdoStatement->rowCount()!=0) {
+            $row = $pdoStatement->fetch();
+            echo(json_encode(array("id"=>$row['id'],"valid"=>"ok","message"=>"Commande servie","errorMsg"=>"")));
+        }else{
+
+            //Vérification que la commande est validée
+            $sql = "SELECT * FROM reservation WHERE pseudo=:pseudo AND (chck=1) AND (IP = :IP);";
+            try{
+            $pdoStatement = $pdo->prepare($sql);
+            $pdoStatement->execute(array(":pseudo" => $response[0]->pseudo,":IP"=> $_SERVER['REMOTE_ADDR']));
+            }catch(PDOException $err){
+                echo(json_encode(array("id"=>"","valid"=>"","message"=>"","errorMsg"=>$err->getmessage())));
+            }
+            if ($pdoStatement->rowCount()!=0) {
+                $row = $pdoStatement->fetch();
+                echo(json_encode(array("id"=>$row['id'],"valid"=>"","message"=>"Commande pris en compte","errorMsg"=>"")));
+            }
+            else
+            {
+
+                /*Requete pour savoir si l'utilisateur à déjà fait une commande dans un temps déterminé*/
+                $sql = "SELECT * FROM reservation WHERE (IP = :IP) AND (chck<2);";
+                try{
+                    $pdoStatement = $pdo->prepare($sql);
+                    $pdoStatement->execute(array(":IP"=> $_SERVER['REMOTE_ADDR']));
+                }catch(PDOException $err){
+                    echo(json_encode(array("id"=>"","valid"=>"","message"=>"","errorMsg"=>$err->getmessage())));
+                }
+                // Si l'utilisateur à déjà fait une commande dans un temps déterminé
+                // on UPDATE la commande, sinon, on en cré une nouvelle
+                if ($pdoStatement->rowCount()!=0) {
+                    $row = $pdoStatement->fetch();
+                    $ID = $row['id'];
+                    $sql = "UPDATE reservation SET PSEUDO=:pseudo WHERE (ID=:ID) and chck=0;";
+                    try{
+                        $pdoStatement = $pdo->prepare($sql);
+                        $pdoStatement->execute(array(":pseudo" => $response[0]->pseudo,":ID"=>$ID));  
+                    }catch(PDOException $err){
+                        echo(json_encode(array("id"=>"","valid"=>"","message"=>"","errorMsg"=>$err->getmessage())));
+                    }
+                }else{
+                    
+                    $sql = "INSERT INTO reservation (pseudo, IP) VALUES(:pseudo, :IP)";
+                    try{
+                        $pdoStatement = $pdo->prepare($sql);
+                        $pdoStatement->execute(array(":pseudo" => $response[0]->pseudo,":IP"=> $_SERVER['REMOTE_ADDR']));
+                    }catch(PDOException $err){
+                        echo(json_encode(array("id"=>"","valid"=>"","message"=>"INSERT","errorMsg"=>$err->getmessage())));
+                    }
+            
+                }  
+                //récupération de l'ID de la derniére commande de l'utilisateur
+                $sql = "SELECT * FROM reservation WHERE (chck=0) AND (IP = :IP) AND (now()-reservation.date) < :Temp";
+                try{
+                    $pdoStatement = $pdo->prepare($sql);
+                    $pdoStatement->execute(array(":Temp"=>TEMP,":IP"=> $_SERVER['REMOTE_ADDR']));    
+                }catch(PDOException $err){
+                    echo(json_encode(array("id"=>"","valid"=>"","message"=>"","errorMsg"=>$err->getmessage())));
+                }
+                if ($pdoStatement->rowCount()!=0) {  
+                    $row = $pdoStatement->fetch();
+                    $ID = $row['id'];
+            
+                //suppression des ligne du détail de la derniére commande si update avant réintégration 
+                //du nouveau détail de la commande
+                    $sql = "DELETE FROM reservation_detail WHERE id = :id;";
+                    try{
+                        $pdoStatement = $pdo->prepare($sql);
+                        $pdoStatement->execute(array(":id"=>$ID));
+                    } catch (PDOException $err) {
+                        if ($err->getCode()== "42S02")
+                        {
+                            CreateServerTable_reservation_detail();
+                        }
+                    }
+                    //insertion du nouveau détail de la commande
+                    $sql = "insert into reservation_detail (id, recette, quantite) VALUES(:id,:recette,:nombre);";
+
+                    foreach ($response as $item) {
+                        try {
+       
+                            $pdoStatement = $pdo->prepare($sql);
+                            $pdoStatement->execute(array(":id"=>$ID, ":recette" => $item->nom, ":nombre" => $item->nombre));
+
+                        } catch (Exception $ex) {
+                            if ($err->getCode()== "42S02")
+                            {
+                                CreateServerTable_reservation_detail();
+                            }
+                            echo(json_encode(array("id"=>"","valid"=>"","message"=>"","errorMsg"=>$err->getmessage())));            
+                        }
+                    }
+                }
+
+                echo(json_encode(array("id"=>"0","valid"=>"","message"=>"Veuillez maintenant valider votre commande par téléphone","errorMsg"=>"")));
+
+            }
+        }
+    }
+}
+function CreateServerTable_reservation(){
+    $conn = new PDO('mysql:host=' . HOST . ';dbname=' . DATA . ';port=' . PORT . ';charset=utf8', USER, PASS);
+    // Gestion des attributs de la connexion : exception et retour du SELECT
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    // Préparation requête : paramétrage pour éviter injections SQL
+    $sql="CREATE TABLE IF NOT EXISTS `reservation` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `IP` varchar(140) NOT NULL,
+      `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      `pseudo` varchar(16) NOT NULL,
+      `chck` int(11) NOT NULL DEFAULT '0',
+      PRIMARY KEY (`id`),
+      KEY `id` (`id`)
+    ) ENGINE=MyISAM AUTO_INCREMENT=161 DEFAULT CHARSET=utf8;";
+    try{
+        $qry = $conn->prepare($sql);
+        $qry->execute();
+    }catch(PDOException $err){
+        echo(json_encode(array("id"=>"","valid"=>"","message"=>"","errorMsg"=>$err->getmessage()))); 
+    }
+}
+function CreateServerTable_reservation_detail(){
+    $conn = new PDO('mysql:host=' . HOST . ';dbname=' . DATA . ';port=' . PORT . ';charset=utf8', USER, PASS);
+    // Gestion des attributs de la connexion : exception et retour du SELECT
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    // Préparation requête : paramétrage pour éviter injections SQL
+    $sql="CREATE TABLE IF NOT EXISTS `reservation_detail` (
+        `Ref` bigint(20) NOT NULL AUTO_INCREMENT,
+        `id` int(11) NOT NULL,
+        `recette` varchar(80) NOT NULL,
+        `quantite` int(11) NOT NULL,
+        PRIMARY KEY (`Ref`)
+      ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
+    try{
+        $qry = $conn->prepare($sql);
+        $qry->execute();
+    }catch(PDOException $err){
+        echo(json_encode(array("id"=>"","valid"=>"","message"=>"","errorMsg"=>$err->getmessage()))); 
+    }
+}

@@ -1,0 +1,8 @@
+https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/
+
+compte admin:
+user:admin@root.net
+pwd:motdepasse
+compte serveur:
+user:serv@root.net
+pwd:motdepasse

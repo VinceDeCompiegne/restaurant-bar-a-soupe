@@ -1,0 +1,19 @@
+<!--script	type="text/javascript" src="assets/js/test_ajax.js" defer></script-->
+<script src="https://cdn.jsdelivr.net/npm/nutri-score/nutriScore.js"></script>
+<script>
+    const nutriScoreResult = nutriScore.nutriScore.calculateClass(
+        {
+          energy: 0, //KJ
+          fibers: 4, //g   
+          fruit_percentage: 60, //%
+          proteins: 2, //g
+          saturated_fats: 2, //g
+          sodium: 500, //mg
+          sugar: 10 //g
+        },
+        "solid"
+      );
+
+      console.log(nutriScoreResult);
+
+</script>
