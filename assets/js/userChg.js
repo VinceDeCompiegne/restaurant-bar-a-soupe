@@ -7,7 +7,7 @@ var password;
 function fonctionAJAX() {
     var xhr = new XMLHttpRequest;
 
-    xhr.open("POST", `https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/API/utilisateur/liste_utilisateur.php`, true);
+    xhr.open("POST", `https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/API/utilisateur/liste_utilisateur.php`, true);
     xhr.send();
 
     xhr.onreadystatechange = function () {
@@ -107,7 +107,7 @@ function functionDelete(mail,type){
   
     var str_json = "compte=" + JSON.stringify([mail,type]);
 
-    xhr.open("GET", `https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/API/utilisateur/supp_utilisateur.php?`+str_json, true);
+    xhr.open("GET", `https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/API/utilisateur/supp_utilisateur.php?`+str_json, true);
     //Envoie les informations du header adaptées avec la requête
     xhr.send();
 
@@ -169,7 +169,7 @@ function functionInsert(){
       
        var str_json = "compte=" + JSON.stringify([mail.value,actif.checked,type.value,password.value]);
     
-        xhr.open("GET", `https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/API/utilisateur/insert_utilisateur.php?`+str_json, true);
+        xhr.open("GET", `https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/API/utilisateur/insert_utilisateur.php?`+str_json, true);
         //Envoie les informations du header adaptées avec la requête
         xhr.send();
     
@@ -209,7 +209,7 @@ function checkActive(id,mail,type){
       
     var str_json = "compte=" + JSON.stringify([mail,actif.checked,type]);
     
-        xhr.open("GET", `https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/API/utilisateur/active_utilisateur.php?`+str_json, true);
+        xhr.open("GET", `https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/API/utilisateur/active_utilisateur.php?`+str_json, true);
         //Envoie les informations du header adaptées avec la requête
         xhr.send();
     

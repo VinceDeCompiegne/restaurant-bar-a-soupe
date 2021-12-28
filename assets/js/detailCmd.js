@@ -1,7 +1,7 @@
 function fonctionAJAX(requete,nom) {
     var xhr = new XMLHttpRequest;
 
-    xhr.open("GET", `https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/API/detail_reservation.php?id_reservation=`+requete, true);
+    xhr.open("GET", `https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/API/detail_reservation.php?id_reservation=`+requete, true);
     xhr.send();
 
     xhr.onreadystatechange = function () {

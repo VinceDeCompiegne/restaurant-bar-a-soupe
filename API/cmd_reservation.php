@@ -2,6 +2,7 @@
 
 function connection(){
     include_once('../inc/constants.inc.php');
+    
     $dsn = "mysql:host=" . HOST . ";port=" . PORT . ";dbname=" . DATA;
     $options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
     $pdo = new PDO($dsn, USER, PASS, $options);

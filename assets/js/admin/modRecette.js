@@ -2,7 +2,7 @@ function lectureRecette(id_recette){
     
     var xhr = new XMLHttpRequest;
 
-    xhr.open("GET", `https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/API/admin/detail_recette.php?id_recette=`+id_recette, true);
+    xhr.open("GET", `https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/API/admin/detail_recette.php?id_recette=`+id_recette, true);
     xhr.send();
 
     xhr.onreadystatechange = function () {
@@ -36,7 +36,7 @@ function callBackLecture(data){
         <th></th><th></th></tr>`;
         string += '<tr>';
         string += '<td>Photo</td>';
-        string += `<td><img class="pageAd__npt_rcp" name="nom" src="https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/assets/images/recette/${dataAJAX['image']}" style="max-height:75px;width:auto;"></img></td>`;
+        string += `<td><img class="pageAd__npt_rcp" name="nom" src="https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/assets/images/recette/${dataAJAX['image']}" style="max-height:75px;width:auto;"></img></td>`;
         string += '</tr>';
         string += '<tr>';
         string += '<td>Nom recette</td>';
@@ -156,7 +156,7 @@ function validMod(id){
 
      var xhr = new XMLHttpRequest;
 
-     xhr.open("GET", `https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/API/admin/save_recette.php?id_recette=`+str_json, true);
+     xhr.open("GET", `https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/API/admin/save_recette.php?id_recette=`+str_json, true);
      xhr.send();
  
      xhr.onreadystatechange = function () {
@@ -181,7 +181,7 @@ function getListe(selected){
 
 let xhr2 = new XMLHttpRequest;
 let strSel = null;
-xhr2.open("GET", `https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/API/admin/liste_image.php`, true);
+xhr2.open("GET", `https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/API/admin/liste_image.php`, true);
 xhr2.send();
 
 xhr2.onreadystatechange = function () {
@@ -206,7 +206,7 @@ xhr2.onreadystatechange = function () {
 
 
 function selectOnchange(fichier){
-    document.getElementsByClassName("pageAd__npt_rcp")[0].src=`https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/assets/images/recette/${fichier}`;
+    document.getElementsByClassName("pageAd__npt_rcp")[0].src=`https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/assets/images/recette/${fichier}`;
 
 }
     

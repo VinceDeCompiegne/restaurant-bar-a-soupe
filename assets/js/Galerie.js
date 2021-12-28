@@ -351,7 +351,7 @@ function FonctionAJAX() {
     
     var xhr = new XMLHttpRequest;
     
-    xhr.open("GET", `https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/API/nutriscore.php?nom=all`, true);
+    xhr.open("GET", `https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/API/nutriscore.php?nom=all`, true);
     xhr.send();
 
     xhr.onreadystatechange = function () {
@@ -411,7 +411,7 @@ function sauvegarde() {
 function FonctionAJAXImage() {
     var xhr = new XMLHttpRequest;
 
-    xhr.open("GET", `https://vincent-deramaux.hd.free.fr/restaurant-bar-a-soupe/API/nutriscore.php?nom=all`, true);
+    xhr.open("GET", `https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/API/nutriscore.php?nom=all`, true);
     xhr.send();
 
     xhr.onreadystatechange = function () {
