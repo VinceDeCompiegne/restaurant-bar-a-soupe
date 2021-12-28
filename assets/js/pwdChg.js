@@ -58,7 +58,7 @@ function chgPassword(){
       
     var str_json = "compte=" + JSON.stringify([mail.value,oldPassword.value,newPassword1.value,newPassword2.value]);
     
-        xhr.open("GET", `https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/API/utilisateur/chgPwd_utilisateur.php?`+str_json, true);
+        xhr.open("GET", `/site/restaurant-bar-a-soupe/API/utilisateur/chgPwd_utilisateur.php?`+str_json, true);
         //Envoie les informations du header adaptées avec la requête
         xhr.send();
     
@@ -96,5 +96,5 @@ function callBackChgPwd(data){
 }
 
 function RedirectionJavascript(){
-    document.location.href="https://vincent-deramaux.hd.free.fr/site/Admin.php";
+    document.location.href="/site/Admin.php";
   }

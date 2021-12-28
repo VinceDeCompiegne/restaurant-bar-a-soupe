@@ -49,7 +49,7 @@
                     $row = $qry->fetch();
 
                     echo('<article Class="PlatMenu" id="Plat_'.$index.'">
-                    </div><img src="https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/assets/images/recette/'.$row['image'].'" alt="Photo Principal" style="max-height:400px;max-width:400px;height:100%;width:auto;margin-left:15%;"/>
+                    </div><img src="/site/restaurant-bar-a-soupe/assets/images/recette/'.$row['image'].'" alt="Photo Principal" style="max-height:400px;max-width:400px;height:100%;width:auto;margin-left:15%;"/>
                     <div class="plat">
                     <H4>'.$row['nom'].'</H4>
                     <H6>'.$row['description'].'</H6>

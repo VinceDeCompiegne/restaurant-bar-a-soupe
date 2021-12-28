@@ -2,7 +2,7 @@ function addRecette(){
 
     var xhr = new XMLHttpRequest;
 
-    xhr.open("GET", `https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/API/admin/liste_image.php`, true);
+    xhr.open("GET", `/site/restaurant-bar-a-soupe/API/admin/liste_image.php`, true);
     xhr.send();
 
     xhr.onreadystatechange = function () {
@@ -35,7 +35,7 @@ function callBackAddRecette(data){
         <th></th><th></th></tr>`;
         string += '<tr>';
         string += '<td>Photo</td>';
-        string += `<td><img class="pageAd__npt_rcp" name="nom" src="https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/assets/images/recette/Bol.png" style="max-height:75px;width:auto;"></img></td>`;
+        string += `<td><img class="pageAd__npt_rcp" name="nom" src="/site/restaurant-bar-a-soupe/assets/images/recette/Bol.png" style="max-height:75px;width:auto;"></img></td>`;
         string += '</tr>';
         string += '<tr>';
         string += '<td>Nom recette</td>';
@@ -169,7 +169,7 @@ function validAdd(){
 
      var xhr = new XMLHttpRequest;
 
-     xhr.open("GET", `https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/API/admin/add_recette.php?id_recette=`+str_json, true);
+     xhr.open("GET", `/site/restaurant-bar-a-soupe/API/admin/add_recette.php?id_recette=`+str_json, true);
      xhr.send();
  
      xhr.onreadystatechange = function () {
@@ -190,6 +190,6 @@ function callBackModif(data){
 }
 
 function selectOnchange(fichier){
-    document.getElementsByClassName("pageAd__npt_rcp")[0].src=`https://vincent-deramaux.hd.free.fr/site/restaurant-bar-a-soupe/assets/images/recette/${fichier}`;
+    document.getElementsByClassName("pageAd__npt_rcp")[0].src=`/site/restaurant-bar-a-soupe/assets/images/recette/${fichier}`;
 
 }
