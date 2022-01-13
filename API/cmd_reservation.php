@@ -13,7 +13,7 @@ function selectReservByIp($uid){
     $pdo=null;
     $pdo=connection();
 
-    $sql = "SELECT * FROM reservation WHERE (uid = :uid) order by 'uid','chck' desc limit 1;";
+    $sql = "SELECT * FROM reservation WHERE (uid = :uid) order by 'id','chck' desc limit 1;";
     try{
         $pdoStatement = $pdo->prepare($sql);
         $pdoStatement->execute(array(":uid"=> $uid));
@@ -81,14 +81,14 @@ function selectReservById($id){
     }
 }
 
-function selectReservTimeById($id){
+function selectReservTimeById($uid){
 
     $pdo=connection();
 
-    $sql = "SELECT (now()-reservation.date) as 'time' FROM reservation WHERE ip=:IP AND chck>=2 order by 'date' desc limit 1;";
+    $sql = "SELECT (now()-reservation.date) as 'time' FROM reservation WHERE uid=:uid AND chck>=2 order by 'date' desc limit 1;";
     try{
         $pdoStatement = $pdo->prepare($sql);
-        $pdoStatement->execute(array(":IP"=> $_SERVER['REMOTE_ADDR']));
+        $pdoStatement->execute(array(":uid"=> $uid));
         if ($pdoStatement->rowCount()!=0) {
             $row = $pdoStatement->fetch();
             return ($row['time']);

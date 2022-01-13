@@ -2,13 +2,15 @@
 
 include_once('./cmd_reservation.php');
 session_start();
+// print_r($_GET);
 
 
-$response = json_decode(urldecode($_GET['reservation']),true);
+// echo $_GET['reservation'];
+$response = json_decode($_GET['reservation'],true);
 
 $id = null;
 
-if ($response != 'null') {
+if (($response != 'null')&&(isset($response))) {
 
     $pseudo = $response[0]['pseudo'];
 
@@ -78,7 +80,7 @@ if ($response != 'null') {
             case 3:
                 //var_dump($response[0]);
                 $row_selectReservByIp = selectReservByIp($_SESSION['uid']);
-                $time = selectReservTimeById($row_selectReservByIp['id']);
+                $time = selectReservTimeById($row_selectReservByIp['uid']);
                 
                 if ($time > 60){
 

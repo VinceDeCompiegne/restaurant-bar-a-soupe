@@ -109,10 +109,10 @@ function reservation(reserv) {
             try {
                 var str_json = "reservation=" + JSON.stringify(tab);
   
-                request.open("GET", "./API/reservation.php?"+str_json, true);
-                request.setRequestHeader("Content-type", "application/json");
+                request.open("GET", "/site/restaurant-bar-a-soupe/API/reservation.php?"+str_json);
+                request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 request.send();
-                console.log(str_json);
+                //console.log(str_json);
 
                 request.onreadystatechange = function() {
                     if ((request.readyState==4) && ((request.status==200)||(request.status==0))){
