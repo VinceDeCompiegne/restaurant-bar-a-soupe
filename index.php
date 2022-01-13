@@ -1,12 +1,17 @@
+<?php 
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="title" content="Bar à soupe">
+    <meta name="decription" content="site vitrine développé lors de ma formation de concepteur développeur d'application en 2021">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" defer/>
     <link href="assets/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" defer/>
+    <script type="text/javascript" src="assets/js/index.js" defer></script>
     <title>Restaurant Bar à Soupe</title>
 </head>
 <body>
@@ -19,11 +24,12 @@
                 <li><a href="Galerie.php">Plats et Menus</a></li>
                 <li><a href="Reservation.html">Reservation</a></li>
                 <li><a href="Contact.html">Contact</a></li>
-                <li><a href="Admin.php" id="btnLogin" data-toggle="modal" data-target="#staticBackdrop">Admin</a></li>
+                <li><a href="Admin.php" id="btnInscription" data-toggle="modal" data-target="#staticBackdropInscription">Inscription</a></li>
             </ul>
         </nav>
-
     </HEADER>
+    <div style="background-color:brown;text-align:right;heigth:20px;"><?php if (isset($_SESSION['speudo'])){echo '<p style="margin-bottom: 0px;">Bienvenue ' . $_SESSION['speudo'] . ' <a style="color:red;" href="/site/restaurant-bar-a-soupe/logout.php">(logout)</a></p>';}else{echo '<a  href="#" style="cursor:pointer;" id="btnLogin" data-toggle="modal" data-target="#staticBackdrop">login</a>';}; ?></div>
+    
     <MAIN>
         <SECTION id="partieHaute">
             <div id="PhotoPrincipal" style="margin-left:auto;">
@@ -31,20 +37,32 @@
             </div>
         </SECTION>
         <SECTION id="Plat">
-            <h3>Vous aimez...</h3>            
+            <?php 
+                if (isset($_SESSION['speudo'])){echo "<h3>" . $_SESSION['speudo'] . ", vous commandez le plus...</h3>";}else{echo "<h3>Vous aimez...</h3>";}
+            ?>            
             <div id="VousAimez">
             <?php
                 include_once('inc/constants.inc.php');
     try {
-
+        $uid = isset($_SESSION['uid'])?$_SESSION['uid']:"%";
     // Connexion
         $conn = new PDO('mysql:host=' . HOST . ';dbname=' . DATA . ';port=' . PORT . ';charset=utf8', USER, PASS);
     // Gestion des attributs de la connexion : exception et retour du SELECT
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     // Préparation requête : paramétrage pour éviter injections SQL
-        $qry = $conn->prepare("SELECT recette,id,count(recette) AS 'COUNT' FROM reservation_detail  GROUP BY  recette ORDER BY COUNT(recette) DESC  limit 3;");
-        $qry->execute();
+        $qry = $conn->prepare("SELECT recette,reservation_detail.id,count(recette) AS 'COUNT' 
+        FROM reservation_detail  
+        JOIN reservation
+        WHERE reservation_detail.id = reservation.id
+        AND reservation.uid like :uid
+        GROUP BY  recette 
+        ORDER BY COUNT(recette) 
+        DESC  limit 3;");
+
+        $qry->execute(array("uid"=>$uid));
+        // $result = $qry->fetchAll();
+        // var_dump($result);
 
         $pdoStatement = $conn->prepare('SELECT * FROM description where active=1 ORDER BY nom;');
         $pdoStatement->execute();
@@ -208,41 +226,86 @@
                 <img src="assets/images/iconfinder_pinterest.svg" alt="logo Pinterest"/>
         </div>
         <div>
-            <h4>© Copyright 2021</h4>
+            <h4>Vincent Deramaux © Copyright 2021</h4>
         </div>
     </SECTION>
     </FOOTER>
-        <!-- Modal -->
+        <!-- Modal Login-->
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">Connexion</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="btnCloseModal1" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="login.php" method="post">
+                    <form id="connexion-form" action="login.php" method="post">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="mail">Identifiant</label>
-                                <input type="email" class="form-control" id="mail" name="mail" required>
+                                <input type="email" autocomplete ="true" class="form-control" id="mail1" name="mail" required>
+                                <p id="mailForm1" style="color:red;font-size:12px;"></p>
                             </div>
                             <div class="form-group">
-                                <label for="pass">Mot de passe</label>
-                                <input type="password" class="form-control" id="pass" name="pass" pattern="[A-Za-z0-9_$]{8,}" required>
+                                <label for="current-password">Mot de passe</label>
+                                <input type="password" autocomplete ="true" class="form-control" id="current-password" name="current-password" pattern="[A-Za-z0-9_$]{8,}" required>
+                                <p id="currentPasswordForm" style="color:red;font-size:12px;"></p>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                            <input type="submit" value="Se connecter" class="btn btn-primary">
+                            <button id="btnFermer1" type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            <input type="submit" id="validConnection" value="Se connecter" class="btn btn-primary">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+        <!-- Modal Inscription-->
+        <div class="modal fade" id="staticBackdropInscription" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Inscription</h5>
+                        <button type="button" id="btnCloseModal2" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="contact-form" action="inscription.php" method="post">
+                        <div class="modal-body">
+                        <div class="form-group">
+                                <label for="speudo">Speudo</label>
+                                <input type="text" class="form-control" id="speudo" name="speudo" required>
+                                <p id="speudoForm" style="color:red;font-size:12px;"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="mail">mail</label>
+                                <input type="email" autoComplete ="off" class="form-control" id="mail2" name="mail" required>
+                                <p id="mailForm" style="color:red;font-size:12px;"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="current-password">Mot de passe</label>
+                                <input type="password" autoComplete ="off" class="form-control" id="new-password" name="new-password" pattern="[A-Za-z0-9_$]{8,}" required>
+                                <p style="font-size:11px;">8 caractéres minimum - Accepte majuscules, minuscules et caractéres spéciaux</p>
+                                <p id="curentPasswordForm" style="color:red;font-size:12px;"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Confirmation Mot de Passe</label>
+                                <input type="password" autoComplete ="off" class="form-control" id="password" name="password" pattern="[A-Za-z0-9_$]{8,}" required>
+                                <p id="newPasswordForm" style="color:red;font-size:12px;"></p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnFermer2" type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            <input type="submit" id="validInscription" value="Se connecter" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 </body>
 </html>

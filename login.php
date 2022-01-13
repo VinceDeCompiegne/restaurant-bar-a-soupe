@@ -2,55 +2,65 @@
 session_start();
 // Nettoie les données passées dans POST : htmlspecialchars
 $mail = (isset($_POST['mail']) && !empty($_POST['mail'])) ? htmlspecialchars($_POST['mail']) : null;
-$pass = (isset($_POST['pass']) && !empty($_POST['pass'])) ? htmlspecialchars($_POST['pass']) : null;
-if ($mail == null){
-    $mail = (isset($_SESSION['mail']) && !empty($_SESSION['mail'])) ? htmlspecialchars($_SESSION['mail']) : null;
-    $pass = (isset($_SESSION['pass']) && !empty($_SESSION['pass'])) ? htmlspecialchars($_SESSION['pass']) : null;
-    }
+$pass = (isset($_POST['current-password']) && !empty($_POST['current-password'])) ? htmlspecialchars($_POST['current-password']) : null;
 
-$_SESSION['mail'] = $mail;
-$_SESSION['pass'] = $pass;
 
 // Si mail et mot de passe exploitables 
-if ($mail && $pass) {
+if (($mail != "") && ($pass != "")) {
+
+    $_SESSION['mail'] = $mail;
+    $_SESSION['pass'] = $pass;
+
     // Crypte le mail et le mot de passe pour comparaison vs BDD
     //$mail = md5(md5($mail) . strlen($mail));
     //$pass = sha1(md5($mail) . md5($pass));
 
     // Connexion à BDD
-    include_once('inc/Function_login.inc.php');
-    try {
+    include_once('inc/constants.inc.php');
+
+    try{
         
-        if ("admin" == login($mail,$pass)){
-            include_once('PageAdmin.php');
-            //header("location: PageAdmin.php");
-        }else if("serveur" == login($mail,$pass)){
-            include_once('pageServeur.php');
-        }
+        $conn = new PDO('mysql:host=' . HOST . ';dbname=' . DATA . ';port=' . PORT . ';charset=utf8', USER, PASS);
+        // Gestion des attributs de la connexion : exception et retour du SELECT
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-    } catch (Exception $err) {
-        
-        if ($err->getmessage() == "42S02"){
+        $prep = $conn->prepare('SELECT * from user where (mail like :mail) and (pass like :pass) ;');
+        $prep->execute(array(":mail" => $mail,":pass"=>$pass));
+        $count = $prep->rowCount();
+        $row = $prep->fetch();
 
-            $mail = "root@root.net";
-            $mdp = "motdepasse";
+        if ($count == 1) {
 
-            echo "<table><tbody>";
-            echo "<tr>Base inexistante: création de celle-ci en mode démo :   - -</tr>";
-            echo "<tr>mail : '".$mail."'    - -   </tr>";
-            echo "<tr>mot de passe : '".$mdp."'</tr>";
-            echo "</tbody></table>";
-
-            try{
-                createBaseLogin($mail,$mdp);
-            } catch (Exception $err2) {
-                echo $err2->getMessage();
+            $_SESSION['type'] = $row['type']; 
+            $_SESSION['speudo'] =  $row['speudo']; 
+            $_SESSION['uid'] =  $row['uid']; 
+                         
+            if ("admin" == $_SESSION['type']){
+                header('Location: /site/restaurant-bar-a-soupe/PageAdmin.php');
+                die();
+            }else if("serveur" == $_SESSION['type']){
+                header('Location: /site/restaurant-bar-a-soupe/pageServeur.php');
+                die();
+            }else{
+                header('Location: /site/restaurant-bar-a-soupe/index.php'); 
+                die();
             }
 
         }else{
-            echo $err->getmessage();
+
+            echo "nok";
+
         }
+  
+    } catch (Exception $err) {  
+
+            echo $err->getmessage();
+
     }
+
 } else {
-    echo 'Mail ou mot de passe inexploitable!';
+
+     echo 'nok';
+
 }

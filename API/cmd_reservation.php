@@ -9,14 +9,14 @@ function connection(){
     return $pdo;
 }
 
-function selectReservByIp(){
+function selectReservByIp($uid){
     $pdo=null;
     $pdo=connection();
 
-    $sql = "SELECT * FROM reservation WHERE (IP = :IP) order by 'id','chck' desc limit 1;";
+    $sql = "SELECT * FROM reservation WHERE (uid = :uid) order by 'uid','chck' desc limit 1;";
     try{
         $pdoStatement = $pdo->prepare($sql);
-        $pdoStatement->execute(array(":IP"=> $_SERVER['REMOTE_ADDR']));
+        $pdoStatement->execute(array(":uid"=> $uid));
         if ($pdoStatement->rowCount()!=0) {
             $row = $pdoStatement->fetch();
             return ($row);
@@ -105,14 +105,14 @@ function selectReservTimeById($id){
     }
 }
 
-function InsertReservBySpeudo($speudo){
-
+function InsertReservBySpeudo($speudo,$uid){
+    
     $pdo=connection();
 
-    $sql = "INSERT INTO reservation (pseudo, IP) VALUES(:pseudo, :IP)";
+    $sql = "INSERT INTO reservation (pseudo, uid) VALUES(:pseudo, :uid)";
     try{
         $pdoStatement = $pdo->prepare($sql);
-        $pdoStatement->execute(array(":pseudo" => $speudo,":IP"=> $_SERVER['REMOTE_ADDR']));
+        $pdoStatement->execute(array(":pseudo" => $speudo,":uid"=> $uid));
         return 1;
     }catch(PDOException $err){
         echo(json_encode(array("id"=>"","valid"=>"","message"=>"InsertBySpeudo","errorMsg"=>$err->getmessage())));

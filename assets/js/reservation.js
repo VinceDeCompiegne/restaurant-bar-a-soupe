@@ -4,6 +4,19 @@ window.addEventListener("load", function (event) {
     chargement()
 });
 
+btnAnnulation = document.getElementById("btn__Annulation");
+btnReservation = document.getElementById("ReservBouton");
+
+let start = false;
+
+btnReservation.addEventListener("click",()=>{
+    start = true;
+});
+
+btnAnnulation.addEventListener("click",()=>{  
+    start = false;
+});
+
 function chargement() {
 
     for (i = 0; i <= 15; i++) {
@@ -142,10 +155,10 @@ function respond(data) {
         
         if (msg.message!=""){
             document.getElementById("msgTicket").innerHTML = msg.message;
-            if((msg.valid!="ok")&&(scrutation=1)){varTimer = setTimeout(reservation(1), 30000);scrutation++;}
+            if((msg.valid!="ok")&&(scrutation<=1)){varTimer = setTimeout(reservation(1), 5000);scrutation++;}
         }
         
-        if((idReservation != null)&&(idReservation != msg.id)&&(!boutonDetail)){
+        if((idReservation != null)&&(idReservation != msg.id)&&(!boutonDetail)&&(!start)){
             if (varTimer != 0){clearTimeout(varTimer)};
             idReservation = null;
             varTimer=0;

@@ -116,7 +116,7 @@ HEADER img{
     }
     HEADER ul{
         display:flex;
-        width: 80%; 
+        width: 100%; 
         top: 15px;
         right: 16px;
     }
@@ -580,7 +580,7 @@ HEADER h1{
     margin-left: 3%;
 }
 HEADER nav{
-    width:60%;
+    width:100%;
 }
 HEADER ul{
     position: relative;
@@ -592,12 +592,12 @@ HEADER ul li{
         position:relative;
         width: 100%;
 }
-nav a{
+a{
     text-decoration:none;
     text-rendering:auto;
     color:black;
 }
-nav a:hover{
+a:hover{
     color:coral;
 }
 #Plat input{

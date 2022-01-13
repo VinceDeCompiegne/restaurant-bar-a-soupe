@@ -142,7 +142,7 @@ $servie = (isset($_POST['servie']) && !empty($_POST['servie'])) ? htmlspecialcha
                             <img src="assets/images/iconfinder_pinterest.svg" alt="logo Pinterest"/>
                     </div>
                     <div>
-                        <h4>© Copyright 2021</h4>
+                        <h4> Vincent Deramaux @ Copyright 2021</h4>
                         <div id="debug"></div>
                     </div>
                     <dialog id="mydialogUser" close> 

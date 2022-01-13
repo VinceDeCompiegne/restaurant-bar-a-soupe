@@ -18,7 +18,7 @@ function tableau()
 
             $string1 = ('<div class="pageSrv__div"><Table class="pageSrv__tbl_dtl" span="1" ><tbody><tr>
             <th>Detail</th>');
-            $string2 = ('<form class="pageSrv__frm" action="login.php" method="post">');
+            $string2 = ('<form class="pageSrv__frm" action="pageServeur.php" method="post">');
             $string2 .= ('<Table class="pageSrv__tbl" span="1" ><tbody><tr>
         <th>ID</th>
         <th>PSEUDO</th>

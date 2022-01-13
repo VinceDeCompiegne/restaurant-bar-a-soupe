@@ -25,7 +25,7 @@ if ($response != 'null') {
             return 0;
         }
     }   
-    $rowReservByIp = selectReservByIp();
+    $rowReservByIp = selectReservByIp($_SESSION['uid']);
 
     ($rowReservByIp!=null)?$select=$rowReservByIp['chck']:$select=0;
 
@@ -37,7 +37,7 @@ if ($response != 'null') {
             case 0:
                 //var_dump($response[0]);
                 
-                $row_selectReservByIp = selectReservByIp(3);
+                $row_selectReservByIp = selectReservByIp($_SESSION['uid']);
                 $time = selectReservTimeById($id);
                 
             //    if ($time > 60){   
@@ -58,14 +58,14 @@ if ($response != 'null') {
                 break;
             case 1:
                 //var_dump($response[0]);
-                $row_selectReservBySpeudo = selectReservByIp();
+                $row_selectReservBySpeudo = selectReservByIp($_SESSION['uid']);
                 echo(json_encode(array("id"=>$row_selectReservBySpeudo['id'],"pseudo"=>$row_selectReservBySpeudo['pseudo'],"valid"=>"","message"=>"Commande pris en compte","errorMsg"=>"4")));
                 $_SESSION['like']=0;
                 return 0;
                 break;
             case 2:
                 //var_dump($response[0]);
-                $row_selectReservBySpeudo = selectReservByIp();
+                $row_selectReservBySpeudo = selectReservByIp($_SESSION['uid']);
                 echo(json_encode(array("id"=>$row_selectReservBySpeudo['id'],"pseudo"=>$row_selectReservBySpeudo['pseudo'],"valid"=>"","message"=>"Votre Commande est prête","errorMsg"=>"5")));
           
                 if($_SESSION['like']==0) {
@@ -77,12 +77,12 @@ if ($response != 'null') {
                 break;
             case 3:
                 //var_dump($response[0]);
-                $row_selectReservByIp = selectReservByIp();
+                $row_selectReservByIp = selectReservByIp($_SESSION['uid']);
                 $time = selectReservTimeById($row_selectReservByIp['id']);
                 
                 if ($time > 60){
 
-                    if (InsertReservBySpeudo($response[0]['pseudo'])==1){
+                    if (InsertReservBySpeudo($response[0]['pseudo'],$_SESSION['uid'])==1){
                         $row_selectReservBySpeudo = selectReservBySpeudo($response[0]['pseudo']);
                         InsertDetailById($response,$row_selectReservBySpeudo['id']);
                         echo(json_encode(array("id"=>"0","pseudo"=>"","valid"=>"","message"=>"Veuillez maintenant valider votre commande par téléphone","errorMsg"=>"")));
@@ -107,7 +107,7 @@ if ($response != 'null') {
             return 0;
         }
 
-        if (InsertReservBySpeudo($response[0]['pseudo'])==1){
+        if (InsertReservBySpeudo($response[0]['pseudo'],$_SESSION['uid'])==1){
             $row_selectReservBySpeudo = selectReservBySpeudo($response[0]['pseudo']);
             InsertDetailById($response,$row_selectReservBySpeudo['id']);
             echo(json_encode(array("id"=>"0","pseudo"=>"","valid"=>"","message"=>"Veuillez maintenant valider votre commande par téléphone","errorMsg"=>"")));
