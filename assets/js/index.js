@@ -1,5 +1,5 @@
 let mail  = document.getElementById("mail1");
-let username  = document.getElementById("mail2");
+let mail2  = document.getElementById("mail2");
 
 let bouton = document.getElementById("validInscription");
 let btnValidConnection = document.getElementById("validConnection");
@@ -14,12 +14,13 @@ let speudo  = document.getElementById("speudo");
 
 
 let password  = document.getElementById("password");
-let newPassword  = document.getElementById("new-password");
-let currentPassword  = document.getElementById("current-password");
+let newPassword  = document.getElementById("newPassword");
+let currentPassword  = document.getElementById("currentPassword");
 
 let speudoForm  = document.getElementById("speudoForm");
 let mailForm1  = document.getElementById("mailForm1");
-let mailForm  = document.getElementById("mailForm");
+let mailForm  = document.getElementById("mailForm2");
+let passwordForm  = document.getElementById("passwordForm");
 let newPasswordForm  = document.getElementById("newPasswordForm");
 let currentPasswordForm  = document.getElementById("currentPasswordForm");
 
@@ -33,11 +34,11 @@ btnValidConnection.addEventListener("click",function(evt) {
   defaut = false;
 
   if  (mail.value == ""){
-  //  mailForm1.textContent = "Champ Vide.";
+    mailForm1.textContent = "Champ Vide.";
     defaut = true;
   } 
   if  (currentPassword.value  == ""){
-   // currentPasswordForm.textContent = "Champ Vide.";
+    currentPasswordForm.textContent = "Champ Vide.";
     defaut = true;
   }
 
@@ -103,7 +104,7 @@ btnCloseModal1.addEventListener("click",function(evt) {
 btnFermer2.addEventListener("click",function(evt) {
 
   speudo.value = "";
-  username.value = "";
+  mail2.value = "";
   password.value = "";
   newPassword.value = "";
 
@@ -120,7 +121,7 @@ btnFermer2.addEventListener("click",function(evt) {
 btnCloseModal2.addEventListener("click",function(evt) {
 
   speudo.value = "";
-  username.value = "";
+  mail2.value = "";
   password.value = "";
   newPassword.value = "";
 
@@ -139,39 +140,47 @@ bouton.addEventListener("click",function(evt) {
 
     evt.preventDefault();
 
+    defaut = false;
 
     if (speudo.value == ""){
       speudoForm.textContent = "Champ Vide.";
       defaut = true;
+    }else{
+      speudoForm.textContent = "";
     }
 
-    if (username.value == ""){
+    if (mail2.value == ""){
       mailForm.textContent = "Champ Vide.";
       defaut = true;
+    }else{
+      mailForm.textContent = "";
     }
-
-    if (password.value == ""){
-      passwordForm.textContent = "Champ Vide.";
-      defaut = true;
-    }
-
-    if (newPassword.value == ""){
+    let strnNewPassword = newPassword.value;
+    if (strnNewPassword.length == 0){
       newPasswordForm.textContent = "Champ Vide.";
       defaut = true;
+    }else{
+      newPasswordForm.textContent = "";
+    }
+    strPassword = password.value;
+    if (strPassword.length == 0){
+      passwordForm.textContent = "Champ Vide.";
+      defaut = true;
+    }else{
+      passwordForm.textContent = "";
     }
     
-    if (password.value != newPassword.value){
+    if ((password.value != newPassword.value)&&(strnNewPassword.length != 0)&&(strPassword.length != 0)){
       newPasswordForm.textContent = "Mot de passe mal confirmé.";
       defaut = true;
     }
 
 
     if (defaut == false){
-      alert(defaut);
     httpRequest.onreadystatechange = alertContents;
     httpRequest.open('POST', '/site/restaurant-bar-a-soupe/API/check_username.php');
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    httpRequest.send('mail=' + encodeURIComponent(mail.value));
+    httpRequest.send('mail=' + encodeURIComponent(mail2.value));
     }
 
 });
@@ -179,12 +188,12 @@ bouton.addEventListener("click",function(evt) {
   function alertContents() {
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
       if (httpRequest.status === 200) {
-        var response = httpRequest.responseText;
+        let response = httpRequest.responseText;
 
 
         if (response == "nok") {
             mailForm.textContent = "L'utilisateur est déjà enregistré.";
-            defaut = true;
+            
         }else
     
         /****************************** Appel du formulaire **************************************/

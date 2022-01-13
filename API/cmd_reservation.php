@@ -33,14 +33,14 @@ function selectReservByIp($uid){
     }
 }
 
-function selectReservBySpeudo($speudo){
+function selectReservBySpeudo($speudo,$uid){
 
     $pdo=connection();
 
-    $sql = "SELECT * FROM reservation WHERE pseudo=:pseudo AND (IP = :IP) order by 'date' desc limit 1;";
+    $sql = "SELECT * FROM reservation WHERE pseudo=:pseudo AND (uid = :uid) order by 'date' desc limit 1;";
     try{
         $pdoStatement = $pdo->prepare($sql);
-        $pdoStatement->execute(array(":pseudo" => $speudo,":IP"=> $_SERVER['REMOTE_ADDR']));
+        $pdoStatement->execute(array(":pseudo" => $speudo,":IP"=> $uid));
         if ($pdoStatement->rowCount()!=0) {
             $row = $pdoStatement->fetch();
             return ($row);
@@ -109,7 +109,7 @@ function InsertReservBySpeudo($speudo,$uid){
     
     $pdo=connection();
 
-    $sql = "INSERT INTO reservation (pseudo, uid) VALUES(:pseudo, :uid)";
+    $sql = "INSERT INTO reservation (pseudo, uid) VALUES(:pseudo, :uid);";
     try{
         $pdoStatement = $pdo->prepare($sql);
         $pdoStatement->execute(array(":pseudo" => $speudo,":uid"=> $uid));

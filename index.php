@@ -249,7 +249,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="current-password">Mot de passe</label>
-                                <input type="password" autocomplete ="true" class="form-control" id="current-password" name="current-password" pattern="[A-Za-z0-9_$]{8,}" required>
+                                <input type="password" autocomplete ="true" class="form-control" id="currentPassword" name="current-password" pattern="[A-Za-z0-9_$]{8,}" required>
                                 <p id="currentPasswordForm" style="color:red;font-size:12px;"></p>
                             </div>
                         </div>
@@ -276,24 +276,24 @@
                         <div class="modal-body">
                         <div class="form-group">
                                 <label for="speudo">Speudo</label>
-                                <input type="text" class="form-control" id="speudo" name="speudo" required>
+                                <input type="text" autoComplete ="on" class="form-control" id="speudo" name="speudo" required>
                                 <p id="speudoForm" style="color:red;font-size:12px;"></p>
                             </div>
                             <div class="form-group">
                                 <label for="mail">mail</label>
-                                <input type="email" autoComplete ="off" class="form-control" id="mail2" name="mail" required>
-                                <p id="mailForm" style="color:red;font-size:12px;"></p>
+                                <input type="email" autoComplete ="on" class="form-control" id="mail2" name="mail" required>
+                                <p id="mailForm2" style="color:red;font-size:12px;"></p>
                             </div>
                             <div class="form-group">
                                 <label for="current-password">Mot de passe</label>
-                                <input type="password" autoComplete ="off" class="form-control" id="new-password" name="new-password" pattern="[A-Za-z0-9_$]{8,}" required>
+                                <input type="password" autoComplete ="off" class="form-control" id="newPassword" name="new-password" pattern="[A-Za-z0-9_$]{8,}" required>
                                 <p style="font-size:11px;">8 caractéres minimum - Accepte majuscules, minuscules et caractéres spéciaux</p>
-                                <p id="curentPasswordForm" style="color:red;font-size:12px;"></p>
+                                <p id="newPasswordForm" style="color:red;font-size:12px;"></p>
                             </div>
                             <div class="form-group">
                                 <label for="password">Confirmation Mot de Passe</label>
                                 <input type="password" autoComplete ="off" class="form-control" id="password" name="password" pattern="[A-Za-z0-9_$]{8,}" required>
-                                <p id="newPasswordForm" style="color:red;font-size:12px;"></p>
+                                <p id="passwordForm" style="color:red;font-size:12px;"></p>
                             </div>
                         </div>
                         <div class="modal-footer">
