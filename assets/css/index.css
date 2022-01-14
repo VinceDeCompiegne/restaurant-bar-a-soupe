@@ -17,6 +17,19 @@
  
 */
 
+
+/*Police de caractére dans tout le site */
+
+    @font-face {
+        font-family: 'Luxurious Roman';
+        src: url('LuxuriousRoman-Regular.ttf'); 
+    } 
+
+    body {
+        font-family: 'Luxurious Roman';
+      }
+
+
 *{
     margin:0px;
     padding:0 px;
@@ -683,7 +696,7 @@ a:hover{
     width:0px;
 }
 #horaire td{
-    width:auto;
+    width:150px;
 }
 #horaire table{
     margin-left:auto;
@@ -720,7 +733,7 @@ FOOTER{
 }
 #PiedDePage div{
     display:block;
-    width:25%;
+    width:45%;
     text-align: center;
     margin-top: 10px;
     margin-left:auto;

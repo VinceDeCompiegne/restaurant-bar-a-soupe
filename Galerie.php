@@ -96,7 +96,7 @@
                     <img src="assets/images//iconfinder_pinterest.svg" alt="logo Pinterest"/>
             </div>
             <div>
-                <h3>Vincent Deramaux © Copyright 2021</h3>
+                <h3>Vincent Deramaux - 2021</h3>
             </div>
         </SECTION>
         </FOOTER>

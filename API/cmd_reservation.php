@@ -40,7 +40,7 @@ function selectReservBySpeudo($speudo,$uid){
     $sql = "SELECT * FROM reservation WHERE pseudo=:pseudo AND (uid = :uid) order by 'date' desc limit 1;";
     try{
         $pdoStatement = $pdo->prepare($sql);
-        $pdoStatement->execute(array(":pseudo" => $speudo,":IP"=> $uid));
+        $pdoStatement->execute(array(":pseudo" => $speudo,":uid"=> $uid));
         if ($pdoStatement->rowCount()!=0) {
             $row = $pdoStatement->fetch();
             return ($row);
