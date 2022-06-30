@@ -1,4 +1,36 @@
-<files .htaccess>
-order allow,deny
-allow from all
-</files> 
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php?page=$1
+
+ErrorDocument 301 http://vincent-deramaux.hd.free.fr/erreur_301.html
+ErrorDocument 302 http://vincent-deramaux.hd.free.fr/erreur_302.html
+ErrorDocument 400 http://vincent-deramaux.hd.free.fr/erreur_400.html
+ErrorDocument 401 http://vincent-deramaux.hd.free.fr/erreur_401.html
+ErrorDocument 402 http://vincent-deramaux.hd.free.fr/erreur_402.html
+ErrorDocument 403 http://vincent-deramaux.hd.free.fr/erreur_403.html
+ErrorDocument 404 http://vincent-deramaux.hd.free.fr/erreur_404.html
+ErrorDocument 405 http://vincent-deramaux.hd.free.fr/erreur_405.html
+ErrorDocument 500 http://vincent-deramaux.hd.free.fr/erreur_500.html
+ErrorDocument 505 http://vincent-deramaux.hd.free.fr/erreur_505.html
+
+Options All -Indexes
+ServerSignature Off
+Options +FollowSymLinks
+AddDefaultCharset UTF-8
+
+#Protection XSS, clickJacking et Mime-Type
+<ifModule mod_headers.c>
+Header set X-XSS-Protection "1; mode=block"
+Header always append X-Frame-Options SAMEORIGIN
+Header set X-Content-Type-Options: "nosniff”
+</ifModule>
+
+# protection contre les injections de fichiers
+RewriteCond %{REQUEST_METHOD} GET
+RewriteCond %{QUERY_STRING} [a-zA-Z0-9_]=http:// [OR]
+RewriteCond %{QUERY_STRING} [a-zA-Z0-9_]=(\.\.//?)+ [OR]
+RewriteCond %{QUERY_STRING} [a-zA-Z0-9_]=/([a-z0-9_.]//?)+ [NC]
+RewriteRule .* - [F]

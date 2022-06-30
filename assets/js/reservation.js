@@ -61,19 +61,26 @@ function createPlat(titre, nbr) {
     let res1 = document.getElementById("ReservationLigne");
     let art = document.createElement("article");
     art.classList.add("PlatRes");
-    art.id = "Plat1";
+    art.style.width="300px";
     res1.appendChild(art);
 
     let h4 = document.createElement("h4");
     h4.textContent = titre;
     art.appendChild(h4);
 
+    let divImg = document.createElement("div");
+    divImg.classList.add("PlatRes_divImg");
+    divImg.style.height="130px";
+    divImg.style.width="300px";
+    divImg.style.overflow="hidden";
+    art.appendChild(divImg);
+
     let img = document.createElement("img");
     img.src = "assets/images/"+image;
-    img.alt = "Photo Plat 1";
-    img.style.maxHeight="200px";
-    img.style.maxwidth="200px";
-    art.appendChild(img);
+    img.alt = "Photo Plat : " + titre;
+    img.style.width="300px";
+    img.style.margin="0px auto 0px auto";
+    divImg.appendChild(img);
 
     let div = document.createElement("div");
     div.classList.add("BoutonReservation");
