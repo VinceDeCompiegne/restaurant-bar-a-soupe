@@ -62,18 +62,26 @@ function createPlat(titre, nbr) {
     let art = document.createElement("article");
     art.classList.add("PlatRes");
     art.style.width="300px";
+    art.style.border = "1px solid black"
+    art.style.borderRadius = "10px";
+    art.style.margin = "10px auto";
     res1.appendChild(art);
+
+    let padding = document.createElement("div");
+    padding.style.padding= "10px";
+    padding.style.textAlign = "center";
+    art.appendChild(padding);
 
     let h4 = document.createElement("h4");
     h4.textContent = titre;
-    art.appendChild(h4);
+    padding.appendChild(h4);
 
     let divImg = document.createElement("div");
     divImg.classList.add("PlatRes_divImg");
     divImg.style.height="130px";
-    divImg.style.width="300px";
+    divImg.style.width="280px";
     divImg.style.overflow="hidden";
-    art.appendChild(divImg);
+    padding.appendChild(divImg);
 
     let img = document.createElement("img");
     img.src = "assets/images/"+image;
@@ -84,12 +92,12 @@ function createPlat(titre, nbr) {
 
     let div = document.createElement("div");
     div.classList.add("BoutonReservation");
-    art.appendChild(div);
+    padding.appendChild(div);
 
     let p = document.createElement("p");
     p.classList.add("ResCoeur");
     p.textContent = nbr;
-    art.appendChild(p);
+    padding.appendChild(p);
 
 }
 request = new XMLHttpRequest();
